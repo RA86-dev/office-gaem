@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://cnjx4ud6mgba1"]
+
+[ext_resource type="Script" uid="uid://dlas85x66nsl5" path="res://scripts/game.gd" id="1_78awf"]
+[ext_resource type="Texture2D" uid="uid://cy7l8vyqgkbap" path="res://assets/Background.png" id="1_cpr0p"]
+[ext_resource type="PackedScene" uid="uid://b3vuyqq5e8mui" path="res://scenes/email_window.tscn" id="1_ibkli"]
+[ext_resource type="Texture2D" uid="uid://cvsgph0ko5r0r" path="res://assets/Logo (1).png" id="3_78awf"]
+[ext_resource type="Script" uid="uid://6ojxgxejet6j" path="res://scripts/boss.gd" id="3_s0nni"]
+[ext_resource type="Script" uid="uid://d2poro68cfsqj" path="res://scripts/email_window.gd" id="5_kiw3p"]
+[ext_resource type="AudioStream" uid="uid://bl6krhpx3yebu" path="res://assets/Boss's Blah Blah Blah.mp3" id="6_aug50"]
+[ext_resource type="AudioStream" uid="uid://dn4ug5rom41w4" path="res://assets/LobbyMusic(RequestedSpeed).mp3" id="8_400sg"]
+[ext_resource type="Texture2D" uid="uid://bbqi20p3tjrdu" path="res://assets/bossspritesheet.png" id="9_g4kob"]
+[ext_resource type="PackedScene" uid="uid://cnt0qvygbewpq" path="res://scenes/paycheck_window.tscn" id="10_qy1jj"]
+[ext_resource type="Texture2D" uid="uid://cw8xe2uqwitqy" path="res://assets/URFRIERD.png" id="11_3xj3m"]
+[ext_resource type="AudioStream" uid="uid://bb6e8ol3qigyo" path="res://assets/Blip.wav" id="12_mcffj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy1jj"]
+atlas = ExtResource("9_g4kob")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xj3m"]
+atlas = ExtResource("9_g4kob")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_400sg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy1jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xj3m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_3xj3m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fired:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mcffj"]
+resource_name = "fadein"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fired:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2rd6h"]
+_data = {
+&"RESET": SubResource("Animation_3xj3m"),
+&"fadein": SubResource("Animation_mcffj")
+}
+
+[node name="Game" type="Node2D" unique_id=1776826698]
+script = ExtResource("1_78awf")
+
+[node name="Backdrop" type="Sprite2D" parent="." unique_id=2101316615]
+position = Vector2(576, 324)
+scale = Vector2(1.8, 1.35)
+texture = ExtResource("1_cpr0p")
+
+[node name="Logo" type="Sprite2D" parent="." unique_id=248137655]
+position = Vector2(244, 627.00006)
+scale = Vector2(0.7109375, 0.66015637)
+texture = ExtResource("3_78awf")
+
+[node name="logo_button" type="Button" parent="." unique_id=1751017180]
+offset_left = 216.0
+offset_top = 600.0
+offset_right = 273.0
+offset_bottom = 657.0
+flat = true
+
+[node name="Email_window" parent="." unique_id=734032811 instance=ExtResource("1_ibkli")]
+position = Vector2(16, 0)
+script = ExtResource("5_kiw3p")
+
+[node name="Label" type="Label" parent="Email_window" unique_id=1376334961]
+offset_left = 310.0
+offset_top = 144.0
+offset_right = 350.0
+offset_bottom = 167.0
+
+[node name="boss" type="Node2D" parent="." unique_id=1903451764]
+script = ExtResource("3_s0nni")
+
+[node name="Boss\'sBlahBlahBlah" type="AudioStreamPlayer" parent="boss" unique_id=1467997388]
+stream = ExtResource("6_aug50")
+volume_db = 10.62
+parameters/looping = true
+
+[node name="LobbyMusic(requestedSpeed)" type="AudioStreamPlayer" parent="." unique_id=84573387]
+stream = ExtResource("8_400sg")
+autoplay = true
+parameters/looping = true
+
+[node name="Label" type="Label" parent="." unique_id=1305007982]
+visible = false
+offset_left = 408.0
+offset_top = 96.0
+offset_right = 448.0
+offset_bottom = 119.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1555539113]
+position = Vector2(278, 210.00002)
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_400sg")
+autoplay = "default"
+frame_progress = 0.9204581
+
+[node name="Paycheck window" parent="." unique_id=1184924994 instance=ExtResource("10_qy1jj")]
+
+[node name="fired" type="Sprite2D" parent="." unique_id=1868455023]
+position = Vector2(576, 324)
+scale = Vector2(1.8, 1.35)
+texture = ExtResource("11_3xj3m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=503517983]
+libraries/ = SubResource("AnimationLibrary_2rd6h")
+
+[node name="Blip" type="AudioStreamPlayer" parent="." unique_id=1228345977]
+stream = ExtResource("12_mcffj")
+volume_db = 11.352
+
+[editable path="Email_window"]
+[editable path="Paycheck window"]

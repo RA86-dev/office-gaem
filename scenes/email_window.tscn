@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://b3vuyqq5e8mui"]
+
+[ext_resource type="AudioStream" uid="uid://cms1luufwymin" path="res://assets/PowerUp.wav" id="2_doa0k"]
+[ext_resource type="Texture2D" uid="uid://cfn7v6ahr1pcn" path="res://assets/Teams (2).png" id="2_t0xrt"]
+[ext_resource type="AudioStream" uid="uid://c648iodl0twb7" path="res://assets/Hit.wav" id="3_doa0k"]
+
+[sub_resource type="GDScript" id="GDScript_soi6o"]
+script/source = "extends Node2D
+
+
+
+func _ready() -> void:
+	pass 
+
+func _input(event):
+	var content = event.as_text()
+	var number_safe = \"\"
+	if content and event.is_pressed():
+		if content == \"Enter\":
+			$Email_text.text += \"\\n\"
+			number_safe = \"\\n\"
+		if not content.length() > 1:
+			$Email_text.text += event.as_text()
+			number_safe = event.as_text()
+		if content == \"Backspace\":
+			$Email_text.text.left(-1)
+			number_safe = \"\"
+	
+	if number_safe in TheGlobe.keys_to_press:
+		TheGlobe.keys_to_press.erase(number_safe)
+
+
+func clear_text():
+	$Email_text.clear_text()
+
+
+func _on_close_window_button_pressed() -> void:
+	self.hide()
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t0xrt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t0xrt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SystemFont" id="SystemFont_soi6o"]
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_t0xrt"]
+font = SubResource("SystemFont_soi6o")
+font_color = Color(0, 0, 0, 1)
+
+[node name="Email_window" type="Node2D" unique_id=734032811]
+script = SubResource("GDScript_soi6o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2063404149]
+position = Vector2(568, 324)
+scale = Vector2(1.1250002, 1.05)
+sprite_frames = SubResource("SpriteFrames_t0xrt")
+frame_progress = 0.318436
+
+[node name="Email_text" type="Label" parent="." unique_id=1728601267]
+offset_left = 310.0
+offset_top = 145.0
+offset_right = 577.6471
+offset_bottom = 408.0
+scale = Vector2(2.04, 1)
+label_settings = SubResource("LabelSettings_t0xrt")
+autowrap_mode = 3
+
+[node name="close_window_button" type="Button" parent="." unique_id=1683874142]
+offset_left = 808.0
+offset_top = 80.0
+offset_right = 880.0
+offset_bottom = 136.0
+flat = true
+
+[node name="PowerUp" type="AudioStreamPlayer" parent="." unique_id=790315960]
+stream = ExtResource("2_doa0k")
+
+[node name="Hit" type="AudioStreamPlayer" parent="." unique_id=2028087607]
+stream = ExtResource("3_doa0k")
+volume_db = 15.381
+
+[connection signal="pressed" from="close_window_button" to="." method="_on_close_window_button_pressed"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b01y5hxi2v8e7"
+path="res://.godot/imported/Boss's Blah Blah Blah.mp3-083a985694f9e7f2eb08e024ab46c926.mp3str"
+
+[deps]
+
+source_file="res://assets/key/Boss's Blah Blah Blah.mp3"
+dest_files=["res://.godot/imported/Boss's Blah Blah Blah.mp3-083a985694f9e7f2eb08e024ab46c926.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
